@@ -30,9 +30,9 @@ class Tooth(pygame.sprite.Sprite):
         floor_rect_left = pygame.FRect(self.rect.bottomleft, (-1, 1))
         wall_rect = pygame.FRect(self.rect.topleft + vector(-1, 0), (self.rect.width + 2, 1))
 
-        if ((floor_rect_right.collidelist(self.collision_rect) < 0 and self.direction > 0 or
-                floor_rect_left.collidelist(self.collision_rect) < 0 and self.direction < 0) or
-                wall_rect.collidelist(self.collision_rect) != -1):
+        if floor_rect_right.collidelist(self.collision_rect) < 0 and self.direction > 0 or\
+                floor_rect_left.collidelist(self.collision_rect) < 0 and self.direction < 0 or\
+                wall_rect.collidelist(self.collision_rect) != -1:
             self.direction *= -1
 
 
