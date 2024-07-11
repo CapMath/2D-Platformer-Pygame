@@ -144,9 +144,10 @@ class Level:
                 Shell((obj.x, obj.y), level_frames['shell'], (self.all_sprites, self.collision_sprites),
                       obj.properties['reverse'], self.player, self.create_pearl)
 
+        # items
         for obj in tmx_map.get_layer_by_name('Items'):
             Item(obj.name, (obj.x + TILE_SIZE / 2, obj.y + TILE_SIZE / 2), level_frames['items'][obj.name],
-                 (self.all_sprites, self.item_sprites))
+                 (self.all_sprites, self.item_sprites), self.data)
 
     def create_pearl(self, pos, direction):
         Pearl(pos, (self.all_sprites, self.damage_sprites, self.pearl_sprites), self.pearl_surf, direction, 150)
@@ -169,6 +170,7 @@ class Level:
         if self.item_sprites:
             item_sprites = pygame.sprite.spritecollide(self.player, self.item_sprites, True)
             if item_sprites:
+                item_sprites[0].activate()
                 ParticleEffectSprite(item_sprites[0].rect.center, self.particle_frames, self.all_sprites)
 
     def attack_collision(self):
