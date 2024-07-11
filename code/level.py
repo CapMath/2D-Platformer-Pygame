@@ -8,8 +8,10 @@ from random import uniform
 
 
 class Level:
-    def __init__(self, tmx_map, level_frames):
+    def __init__(self, tmx_map, level_frames, data):
         self.display_surface = pygame.display.get_surface()
+
+        self.data = data
 
         # groups
         self.all_sprites = AllSprites()
@@ -58,7 +60,8 @@ class Level:
                     groups=self.all_sprites,
                     collision_sprites=self.collision_sprites,
                     semi_collision_sprites=self.semi_collision_sprites,
-                    frames=level_frames['player'])
+                    frames=level_frames['player'],
+                    data=self.data)
             else:
                 if obj.name in ('barrel', 'crate'):
                     Sprite((obj.x, obj.y), obj.image, (self.all_sprites, self.collision_sprites))

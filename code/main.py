@@ -1,5 +1,6 @@
 from settings import *
 from level import Level
+from data import Data
 from pytmx.util_pygame import load_pygame
 from os.path import join
 from support import *
@@ -10,11 +11,13 @@ class Game:
         self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         self.clock = pygame.time.Clock()
         self.import_assets()
+
+        self.data = Data()
         pygame.display.set_caption('Super Pirate World')
 
         self.tmx_maps = {0: load_pygame(join('..', 'data', 'levels', 'omni.tmx'))}
 
-        self.current_stage = Level(self.tmx_maps[0], self.level_frames)
+        self.current_stage = Level(self.tmx_maps[0], self.level_frames, self.data)
 
     def import_assets(self):
         self.level_frames = {
